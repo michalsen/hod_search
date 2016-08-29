@@ -19,16 +19,6 @@ function hod_search_ctools_plugin_directory($owner, $plugin_type) {
 /**
  *  Implements hook_search_api_query_alter()
  */
-function hod_search_easy_breadcrumb_breadcrumb_alter(&$breadcrumb) {
-  //dpm($breadcrumb);
-  foreach ($breadcrumb as $key => $value) {
-    //dpm(preg_replace('/&amp;trade;/' ,'', $value['content']));
-  }
-}
-
-/**
- *  Implements hook_search_api_query_alter()
- */
 function hod_search_search_api_query_alter(SearchApiQueryInterface $query) {
 
   // If category is chosen, we need to add a filter
@@ -45,14 +35,6 @@ function hod_search_search_api_query_alter(SearchApiQueryInterface $query) {
     $filter->condition('field_category_id', $tids, 'IN');
     $query->filter($filter);
   }
-
-
-  //$query->sort('title', 'ASC');
-  //$conditions = &$query->condition();
-
-  //dpm($conditions);
-  //dpm($query->getSort());
-  //dpm($query->execute());
 
 }
 
