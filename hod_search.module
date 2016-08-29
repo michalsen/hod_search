@@ -1,0 +1,61 @@
+<?php
+/**
+ *  @file
+ *  HOD Search
+ *
+ */
+
+
+/**
+ *
+ *  CTOOLS Panel
+ */
+function hod_search_ctools_plugin_directory($owner, $plugin_type) {
+  if ($owner == 'ctools' && $plugin_type == 'content_types') {
+    return 'plugins/' . $plugin_type;
+  }
+}
+
+/**
+ *  Implements hook_search_api_query_alter()
+ */
+function hod_search_easy_breadcrumb_breadcrumb_alter(&$breadcrumb) {
+  //dpm($breadcrumb);
+  foreach ($breadcrumb as $key => $value) {
+    //dpm(preg_replace('/&amp;trade;/' ,'', $value['content']));
+  }
+}
+
+/**
+ *  Implements hook_search_api_query_alter()
+ */
+function hod_search_search_api_query_alter(SearchApiQueryInterface $query) {
+
+  // If category is chosen, we need to add a filter
+  if ($_REQUEST['category'] != 'all') {
+
+    // We need to create an array of children tids from the chosen category
+    $children = taxonomy_get_tree(2, $_REQUEST['category']);
+      foreach ($children as $key => $value) {
+        $tids[] = $value->tid;
+      }
+
+    // And create a filter for the items in that taxonomy array
+    $filter = $query->createFilter('AND');
+    $filter->condition('field_category_id', $tids, 'IN');
+    $query->filter($filter);
+  }
+
+
+  //$query->sort('title', 'ASC');
+  //$conditions = &$query->condition();
+
+  //dpm($conditions);
+  //dpm($query->getSort());
+  //dpm($query->execute());
+
+}
+
+
+
+

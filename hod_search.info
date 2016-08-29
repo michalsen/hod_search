@@ -1,0 +1,8 @@
+; $Id: $
+
+name = HOD Search
+description = HOD Custom Search
+core = "7.x"
+package = Straight North
+
+stylesheets[all][] = css/hod_search.css
